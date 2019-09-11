@@ -4,6 +4,11 @@ os:
   - osx
   - windows
   
+env:
+  - PYTHON_VERSION=3.5
+  - PYTHON_VERSION=3.6
+  - PYTHON_VERSION=3.7
+
 osx_image: xcode11    # Python 3.7.4 running on macOS 10.14.4
 
 install:
@@ -32,19 +37,14 @@ install:
     fi
   # anaconda ligin
   - conda config --set always_yes yes --set changeps1 no 
-  # - conda update -q conda
-  - conda install anaconda-client
-  - echo Y | anaconda login --username $ANACONDA_LOGIN --password $ANACONDA_PASSWORD
+  - conda update -q conda
   # build
-  - for PYTHON_VERSION in 3.5 3.6 3.7;
-    do
-        conda create -q -n test-environment-$PYTHON_VERSION python=$PYTHON_VERSION conda-build conda-verify;
-        conda activate test-environment-$PYTHON_VERSION;
-        conda info -a;
-        conda build . --output-folder dist/conda-$PYTHON_VERSION;
-        OUTPUT_FILE=`find dist/conda-$PYTHON_VERSION -name "*.tar.bz2"`;
-        anaconda upload --force --user sdot "$OUTPUT_FILE";
-        conda deactivate;
-    done
+  - conda create -q -n test-environment-$PYTHON_VERSION python=$PYTHON_VERSION conda-build conda-verify anaconda-client
+  - conda activate test-environment-$PYTHON_VERSION
+  - conda info -a
+  - echo Y | anaconda login --username $ANACONDA_LOGIN --password $ANACONDA_PASSWORD
+  - conda build . --output-folder dist/conda-$PYTHON_VERSION
+  - OUTPUT_FILE=`find dist/conda-$PYTHON_VERSION -name "*.tar.bz2"`
+  - anaconda upload --force --user sdot "$OUTPUT_FILE"
 script:
   - echo "OK"
