@@ -1,0 +1,48 @@
+language: shell
+env:
+  - PYTHON_VERSION=3.5
+  - PYTHON_VERSION=3.6
+  - PYTHON_VERSION=3.7
+os:
+  - linux
+  - osx
+  - windows
+  
+osx_image: xcode11    # Python 3.7.4 running on macOS 10.14.4
+
+install:
+  # linux
+  - if [ "$TRAVIS_OS_NAME" = "linux" ];
+    then
+        wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+        bash miniconda.sh -b -p $HOME/miniconda;
+        eval "$($HOME/miniconda/bin/conda shell.bash hook)";
+        hash -r;
+    fi
+  # osx
+  - if [ "$TRAVIS_OS_NAME" = "osx" ];
+    then
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
+        bash miniconda.sh -b -p $HOME/miniconda;
+        eval "$($HOME/miniconda/bin/conda shell.bash hook)";
+        hash -r;
+    fi
+  # windows
+  - if [ "$TRAVIS_OS_NAME" = "windows" ];
+    then
+        export PATH="/c/tools/miniconda3/:/c/tools/miniconda3/Scripts:$PATH";
+        choco install miniconda3 openssl.light;
+        conda config --set ssl_verify no;
+    fi
+  # generic
+  - conda config --set always_yes yes --set changeps1 no 
+  - conda update -q conda
+  - conda create -q -n test-environment python=$PYTHON_VERSION anaconda-client conda-build conda-verify
+  - source activate test-environment
+  - conda info -a
+  - echo Y | anaconda login --username $ANACONDA_LOGIN --password $ANACONDA_PASSWORD
+  - conda build . --output-folder dist/conda
+  - find dist/conda -name "*.tar.bz2"
+  - anaconda upload --force --user sdot `find dist/conda -name "*.tar.bz2"`
+script:
+  - echo "OK"
