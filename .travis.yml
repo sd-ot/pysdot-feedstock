@@ -1,8 +1,4 @@
 language: shell
-env:
-  - PYTHON_VERSION=3.5
-  - PYTHON_VERSION=3.6
-  - PYTHON_VERSION=3.7
 os:
   - linux
   - osx
@@ -34,15 +30,20 @@ install:
         choco install miniconda3 openssl.light;
         conda config --set ssl_verify no;
     fi
-  # generic
+  # anaconda ligin
   - conda config --set always_yes yes --set changeps1 no 
-  - conda update -q conda
-  - conda create -q -n test-environment python=$PYTHON_VERSION anaconda-client conda-build conda-verify
-  - source activate test-environment
-  - conda info -a
+  # - conda update -q conda
+  - conda install anaconda-client
   - echo Y | anaconda login --username $ANACONDA_LOGIN --password $ANACONDA_PASSWORD
-  - conda build . --output-folder dist/conda
-  - find dist/conda -name "*.tar.bz2"
-  - anaconda upload --force --user sdot `find dist/conda -name "*.tar.bz2"`
+  # build
+  - for PYTHON_VERSION in 3.5 3.6 3.7;
+    do
+        conda create -q -n test-environment-$PYTHON_VERSION python=$PYTHON_VERSION conda-build conda-verify
+        source activate test-environment-$PYTHON_VERSION
+        conda info -a
+        conda build . --output-folder dist/conda-$PYTHON_VERSION
+        OUTPUT_FILE=`find dist/conda-$PYTHON_VERSION -name "*.tar.bz2"`
+        anaconda upload --force --user sdot "$OUTPUT_FILE"
+    done
 script:
   - echo "OK"
