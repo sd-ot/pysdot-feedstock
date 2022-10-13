@@ -7,8 +7,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest", "macos-latest", "windows-latest"] # 
-        python-version: ["3.8", "3.9", "3.10"] # 
+        os: ["ubuntu-latest"] #, "macos-latest", "windows-latest"] # 
+        python-version: ["3.8"] #, "3.9", "3.10"] # 
     steps:
       - uses: actions/checkout@v2
       - uses: rlalik/setup-cpp-compiler@v1.1
@@ -26,6 +26,6 @@ jobs:
           ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           conda config --set always_yes yes --set changeps1 no --set anaconda_upload no
-          conda build . --output-folder dist/conda-${{ matrix.python-version }} --python=${{ matrix.python-version }}
+          conda build . --output-folder dist/conda-${{ matrix.python-version }} --python=${{ matrix.python-version }} -c sdot
           OUTPUT_FILE=`find dist/conda-${{ matrix.python-version }} -name "*.tar.bz2"`
           anaconda -t "$ANACONDA_TOKEN" upload --force --user sdot "$OUTPUT_FILE"

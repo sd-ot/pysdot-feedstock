@@ -1,28 +1,14 @@
 package:
   name: pysdot
-  version: 0.0.9
+  version: 0.0.10
 
 source:
   git_url: https://github.com/sd-ot/pysdot.git
-  # sha1: 958ae70baf186263a4bd801a81dd5d682aedd1db
-
-# test:
-#   files:
-#     - test.xml
-#   commands:
-#     - xmllint test.xml
 
 requirements:
   build:
     - {{ compiler('cxx') }}
-  host:
-    - setuptools
-    - pybind11
-    - python
-    - boost
-    - numpy
   run:
-    - python
     - numpy
     - scipy
 

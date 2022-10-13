@@ -5,7 +5,10 @@ name: test
 #   - defaults
 
 dependencies:
-  - conda-build
-  - conda-verify
   - anaconda-client
-  
+  - conda-verify
+  - conda-build
+  - setuptools
+  - numpy
+  - scipy
+  - boost
