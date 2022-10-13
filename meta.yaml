@@ -13,10 +13,8 @@ requirements:
     # - pybind11
     - python {{PY_VER}}*
     - setuptools
-    - numpy
   run:
     - python {{PY_VER}}*
-    - numpy
     - scipy
 
 about:
