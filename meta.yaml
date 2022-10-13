@@ -1,28 +1,24 @@
 package:
-  name: pysdot
-  version: 0.0.10
+    name: pysdot
+    version: 0.0.10
 
 source:
-  git_url: https://github.com/sd-ot/pysdot.git
+    git_url: https://github.com/sd-ot/pysdot.git
 
 requirements:
-  channels:
-    - conda-forge
-  host:
-    # - {{ compiler('cxx') }}
-    # - pybind11
-    - python {{PY_VER}}*
-    - setuptools
-  run:
-    - python {{PY_VER}}*
-    - scipy
+    # build:
+    #     - python {{python}}*
+    #     - numpy {{numpy}}*
+    # run:
+    #     - python {{python}}*
+    #     - numpy {{numpy}}*
 
 about:
-  home: https://github.com/sd-ot/pysdot
-  license: MIT
-  license_family: MIT
-  summary: Semi-discrete Optimal Transportation tools
-  description: |
-     Tools for semi-discrete optimal transportation.
-     Includes power diagram, integration on laguerre cells 
-     for different densities and radial functions, ...
+    home: https://github.com/sd-ot/pysdot
+    license: MIT
+    license_family: MIT
+    summary: Semi-discrete Optimal Transportation tools
+    description: |
+        Tools for semi-discrete optimal transportation.
+        Includes power diagram, integration on laguerre cells 
+        for different densities and radial functions, ...

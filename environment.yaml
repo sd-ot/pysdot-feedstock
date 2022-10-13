@@ -1,10 +1,8 @@
 name: test
 
-# channels:
-#   - conda-forge
-#   - defaults
-
 dependencies:
   - anaconda-client
   - conda-verify
   - conda-build
+  - setuptools
+  - numpy
