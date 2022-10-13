@@ -12,10 +12,11 @@ build:
 requirements:
     build:
         - python {{PY_VER}}*
-    #     - numpy {{numpy}}*
+        - pybind11
+        - boost
     run:
         - python {{PY_VER}}*
-    #     - numpy {{numpy}}*
+        - scipy
 
 about:
     home: https://github.com/sd-ot/pysdot
