@@ -9,7 +9,6 @@ requirements:
   build:
     - {{ compiler('cxx') }}
   run:
-    - numpy
     - scipy
 
 about:
