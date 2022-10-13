@@ -20,7 +20,7 @@ jobs:
           environment-file: environment.yaml
           auto-activate-base: false
           auto-update-conda: true
-      - name: Conda build
+      - name: Conda build 
         shell: bash -l {0}
         env:
           ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
