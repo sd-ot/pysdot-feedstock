@@ -10,11 +10,11 @@ build:
     string: py{{PY_VER}}
 
 requirements:
-    # build:
-    #     - python {{python}}*
+    build:
+        - python {{PY_VER}}*
     #     - numpy {{numpy}}*
-    # run:
-    #     - python {{python}}*
+    run:
+        - python {{PY_VER}}*
     #     - numpy {{numpy}}*
 
 about:
