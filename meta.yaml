@@ -11,7 +11,7 @@ build:
 
 requirements:
     host:
-        - {{ compiler('cxx') }} # [windows]
+        - {{ compiler('cxx') }} # [win]
         - python {{PY_VER}}*
         - pybind11
         - cmake
