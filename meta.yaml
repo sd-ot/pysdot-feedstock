@@ -10,7 +10,7 @@ build:
     string: py{{PY_VER}}
 
 requirements:
-    build:
+    host:
         - {{ compiler('cxx') }}
         - python {{PY_VER}}*
         - pybind11
