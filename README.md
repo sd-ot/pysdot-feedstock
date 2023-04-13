@@ -1,3 +1,3 @@
 # pysdot-feedstock
 
-Pysdot build recipe for conda.
+Pysdot build recipe for conda (push).
