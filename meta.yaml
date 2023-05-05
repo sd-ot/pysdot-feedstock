@@ -18,7 +18,7 @@ requirements:
         - boost
     run:
         - python {{PY_VER}}*
-        - scipy
+        - scipy 
 
 about:
     home: https://github.com/sd-ot/pysdot
