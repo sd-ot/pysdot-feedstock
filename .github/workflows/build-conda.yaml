@@ -14,10 +14,11 @@ jobs:
       - uses: rlalik/setup-cpp-compiler@v1.1
         with:
           compiler: latest
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: ${{ matrix.python-version }}
           environment-file: environment.yaml
+          miniconda-version: "latest"
           auto-activate-base: false
           auto-update-conda: true
       - name: Conda build 
