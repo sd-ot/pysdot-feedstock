@@ -1,6 +1,7 @@
 name: test
 
 dependencies:
+  - anaconda::wget
   - anaconda-client
   - conda-verify
   - conda-build
