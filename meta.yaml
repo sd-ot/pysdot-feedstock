@@ -16,6 +16,7 @@ requirements:
         - pybind11
         - cmake
         - boost
+        - wget
     run:
         - python {{PY_VER}}*
         - scipy 
