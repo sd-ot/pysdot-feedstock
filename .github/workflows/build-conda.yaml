@@ -41,6 +41,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: TheMrMilchmann/setup-msvc-dev@v3
+        with:
+          arch: x64
       - uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: ${{ matrix.python-version }}
