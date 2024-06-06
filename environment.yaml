@@ -1,6 +1,7 @@
 name: test
 
 dependencies:
+  - conda-forge::curl
   - anaconda-client
   - conda-verify
   - conda-build
