@@ -40,7 +40,7 @@ jobs:
         python-version: ["3.8", "3.9", "3.10"] # 
     steps:
       - uses: actions/checkout@v2
-      - uses: ilammy/msvc-dev-cmd@1.4.1
+      - uses: TheMrMilchmann/setup-msvc-dev@v3
       - uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: ${{ matrix.python-version }}
