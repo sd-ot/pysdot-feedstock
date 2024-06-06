@@ -1,19 +1,46 @@
 name: build conda
 on: [push]
 jobs:
-  build_conda:
+  unix:
     name: build conda (${{ matrix.python-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: ["macos-latest", "ubuntu-latest", "windows-latest"] # 
+        os: ["macos-latest", "ubuntu-latest"] # 
         python-version: ["3.8", "3.9", "3.10"] # 
     steps:
       - uses: actions/checkout@v2
       - uses: rlalik/setup-cpp-compiler@v1.1
         with:
           compiler: latest
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+          environment-file: environment.yaml
+          miniconda-version: "latest"
+          auto-activate-base: false
+          auto-update-conda: true
+      - name: Conda build 
+        shell: bash -l {0}
+        env:
+          ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          conda config --set always_yes yes --set changeps1 no --set anaconda_upload no
+          conda build . --output-folder dist/conda-${{ matrix.python-version }} --python=${{ matrix.python-version }}
+          OUTPUT_FILE=`find dist/conda-${{ matrix.python-version }} -name "*.tar.bz2"`
+          anaconda -t "$ANACONDA_TOKEN" upload --force --user sdot "$OUTPUT_FILE"
+  win:
+    name: build conda (${{ matrix.python-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["windows-latest"] # 
+        python-version: ["3.8", "3.9", "3.10"] # 
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ilammy/msvc-dev-cmd@1.4.1
       - uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: ${{ matrix.python-version }}
