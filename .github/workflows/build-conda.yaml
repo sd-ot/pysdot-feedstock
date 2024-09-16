@@ -18,9 +18,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           environment-file: environment.yaml
-          miniconda-version: "latest"
           auto-activate-base: false
           auto-update-conda: true
+          solver: classic
       - name: Conda build 
         shell: bash -l {0}
         env:
