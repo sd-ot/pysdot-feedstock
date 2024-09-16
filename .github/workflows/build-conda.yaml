@@ -56,6 +56,7 @@ jobs:
           ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           conda config --set always_yes yes --set changeps1 no --set anaconda_upload no
+          conda config --set solver classic
           conda build . --output-folder dist/conda-${{ matrix.python-version }} --python=${{ matrix.python-version }}
           OUTPUT_FILE=`find dist/conda-${{ matrix.python-version }} -name "*.tar.bz2"`
           anaconda -t "$ANACONDA_TOKEN" upload --force --user sdot "$OUTPUT_FILE"
